@@ -1,0 +1,12 @@
+POST http:localhost:5000/calonPendonor/createCalonPendonor
+Content-Type: application/json 
+
+{
+    "namaPendonor": "azmi sayang",
+    "emailPendonor": "azmia@gmail.com",
+    "alamatPendonor": "pogung gung",
+    "kotaPendonor": "yogyakarta",
+    "usiaPendonor": "69",
+    "jenisKelaminPendonor": "pria",
+    "beratBadanPendonor": "69",
+}
