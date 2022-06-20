@@ -27,6 +27,35 @@ const calonPendonorSchema = mongoose.Schema({
     beratBadanPendonor: {
         type: String,
         required: true,
+    },
+    golonganDarahPendonor: {
+        type: String,
+        required: true,
+    },
+    rhesusDarahPendonor: {
+        type: String,
+        required: true,
+    },
+    tanggalNegatifPendonor: {
+        type: String,
+        required: true,
+    },
+    mendapatkanTransfusiPendonor: {
+        type: String,
+        required: true,
+    },
+    sudahDivaksinPendonor: {
+        type: String,
+        required: true,
+    },
+    namaDivaksinPendonor: {
+        type: String,
+    },
+    dosisVaksinPendonor: {
+        type: String,
+    },
+    penyakitBeratPendonor: {
+        type: String,
     }
 });
 
