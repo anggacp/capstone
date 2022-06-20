@@ -6,19 +6,19 @@ router.post("/createCalonPendonor", async (req,res)=> {
     const calonPendonor = new CalonPendonorModel({
         namaPendonor: req.body.namaPendonor,
         emailPendonor: req.body.emailPendonor,
-        alamatPendonor: req.body.myAlamatPendonor,
-        kotaPendonor: req.body.myKotaPendonor,
-        usiaPendonor: req.body.myUsiaPendonor,
-        jenisKelaminPendonor: req.body.myJenisKelaminPendonor,
-        beratBadanPendonor: req.body.myBeratBadanPendonor,
-        golonganDarahPendonor: req.body.myGolonganDarahPendonor,
-        rhesusDarahPendonor: req.body.myRhesusDarahPendonor,
-        tanggalNegatifPendonor: req.body.myTanggalNegatifPendonor,
-        mendapatkanTransfusiPendonor: req.body.myMendapatkanTransfusiPendonor,
-        sudahDivaksinPendonor: req.body.mySudahDivaksinPendonor,
-        namaVaksinPendonor: req.body.myNamaVaksinPendonor,
-        dosisVaksinPendonor: req.body.myDosisVaksinPendonor,
-        penyakitBeratPendonor: req.body.myPenyakitBeratPendonor
+        alamatPendonor: req.body.alamatPendonor,
+        kotaPendonor: req.body.kotaPendonor,
+        usiaPendonor: req.body.usiaPendonor,
+        jenisKelaminPendonor: req.body.jenisKelaminPendonor,
+        beratBadanPendonor: req.body.beratBadanPendonor,
+        golonganDarahPendonor: req.body.golonganDarahPendonor,
+        rhesusDarahPendonor: req.body.rhesusDarahPendonor,
+        tanggalNegatifPendonor: req.body.tanggalNegatifPendonor,
+        mendapatkanTransfusiPendonor: req.body.mendapatkanTransfusiPendonor,
+        sudahDivaksinPendonor: req.body.sudahDivaksinPendonor,
+        namaVaksinPendonor: req.body.namaVaksinPendonor,
+        dosisVaksinPendonor: req.body.dosisVaksinPendonor,
+        penyakitBeratPendonor: req.body.penyakitBeratPendonor
     });
     try{
         const newCalonPendonor = await calonPendonor.save();
