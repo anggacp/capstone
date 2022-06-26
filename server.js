@@ -26,4 +26,6 @@ app.get("/homepage", (req,res) => {
 
 app.use(express.json());
 const calonPendonorRoute = require("./routes/calon_pendonor");
+const userRoute = require("./routes/user_rumah_sakit");
 app.use("/calonPendonor", calonPendonorRoute)
+app.use("/user",userRoute)
