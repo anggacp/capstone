@@ -42,7 +42,7 @@ router.get("/", [authjwt.verifyToken],async (req,res)=> {
 
   //total semua data plasma golongan darah di semua rs
   //note masih bingung wkwkwk
-  router.get("/total",async (req,res)=> {
+  router.get("/total/allrs",async (req,res)=> {
     try {
         const semua_rs = await rsModel.find();
         var total = {
