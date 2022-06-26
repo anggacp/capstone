@@ -1,7 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const UserModel = require("../models/user_model")
-
+var jwt = require("jsonwebtoken");
+var config = require("../config-jwt")
 
 router.post("/login", async (req,res)=> {
 
@@ -25,10 +26,15 @@ router.post("/login", async (req,res)=> {
         });
         return null
       }
+
       //kondisi jika login berhasil
+      var token = jwt.sign({id:user.id_rumah_sakit}, config.secret, {
+        //kadaluarsa ne token e 24 jam yo ngga
+        expiresIn: 86400})
       res.status(200).json({
         isSuccessful:true,
-        message:"Login berhasil!"
+        message:"Login berhasil!",
+        accessToken:token
 
       })
     } catch (error) {
