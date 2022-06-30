@@ -28,14 +28,12 @@ router.post("/login", async (req,res)=> {
       }
 
       //kondisi jika login berhasil
-      var token = jwt.sign({id:user.id_rumah_sakit}, config.secret, {
-        //kadaluarsa ne token e 24 jam yo ngga
-        expiresIn: 86400})
+      // var token = jwt.sign({id:user.id_rumah_sakit}, config.secret, {
+      //   expiresIn: 86400})
       res.status(200).json({
         isSuccessful:true,
         message:"Login berhasil!",
-        accessToken:token
-
+        id_rumah_sakit: user.id_rumah_sakit
       })
     } catch (error) {
         res.json({message:error.message})
