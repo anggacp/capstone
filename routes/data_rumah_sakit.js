@@ -64,10 +64,48 @@ router.get("/", [authjwt.verifyToken],async (req,res)=> {
     }
   });
 
-  //menambah data golongan darah berdasarkan kategori
-  router.post("/tambah",[authjwt.verifyToken], async (req,res) =>{
+  // mendapatkan data detail dari stok plasma darah
+  router.get("/detail/:id_rumah_sakit",async (req,res)=> {
     try {
-    const rs = await rsModel.findOne({ id_rumah_sakit: req.id_rumah_sakit});
+        const rs = await rsModel.findOne({ id_rumah_sakit: req.params.id_rumah_sakit});
+        res.status(200).json({
+            total_plasma: rs.stok_plasma_A_positif + rs.stok_plasma_A_negatif + 
+            rs.stok_plasma_B_positif + rs.stok_plasma_B_negatif +
+            rs.stok_plasma_AB_positif + rs.stok_plasma_AB_negatif +
+            rs.stok_plasma_O_positif + rs.stok_plasma_O_negatif,
+            stok_plasma_A_positif : rs.stok_plasma_A_positif,
+            stok_plasma_A_negatif : rs.stok_plasma_A_negatif,
+            stok_plasma_B_positif : rs.stok_plasma_B_positif,
+            stok_plasma_B_negatif : rs.stok_plasma_B_negatif,
+            stok_plasma_AB_positif : rs.stok_plasma_AB_positif,
+            stok_plasma_AB_negatif : rs.stok_plasma_AB_negatif,
+            stok_plasma_O_positif : rs.stok_plasma_O_positif,
+            stok_plasma_O_negatif : rs.stok_plasma_O_negatif,
+        })
+      
+    } catch (error) {
+        res.json({message:error.message})
+    }
+  });
+
+  //menambah data golongan darah berdasarkan kategori
+//   router.post("/tambah",[authjwt.verifyToken], async (req,res) =>{
+//     try {
+//     const rs = await rsModel.findOne({ id_rumah_sakit: req.id_rumah_sakit});
+//     let kategori = req.body.kategori;
+//     rs[kategori] += 1;
+//     rs.save();
+//     res.status(200).json({
+//         "status":"sukses menambah data " + kategori
+//     })
+// }
+// catch (error) {
+//     res.json({message:error.message})
+// }
+//   });
+  router.post("/tambah/:id_rumah_sakit", async (req,res) =>{
+    try {
+    const rs = await rsModel.findOne({ id_rumah_sakit: req.params.id_rumah_sakit});
     let kategori = req.body.kategori;
     rs[kategori] += 1;
     rs.save();
@@ -80,14 +118,12 @@ router.get("/", [authjwt.verifyToken],async (req,res)=> {
 catch (error) {
     res.json({message:error.message})
 }
-
-
   });
 
-//mengurangi data golongan darah berdasarkan kategori
-  router.post("/kurang",[authjwt.verifyToken], async (req,res) =>{
+//mengurangi data golongan darah berdasarkan kategori (without jwt token 24jam)
+  router.post("/kurang/:id_rumah_sakit", async (req,res) =>{
     try {
-    const rs = await rsModel.findOne({ id_rumah_sakit: req.id_rumah_sakit});
+    const rs = await rsModel.findOne({ id_rumah_sakit: req.params.id_rumah_sakit});
     let kategori = req.body.kategori;
     if (rs[kategori] == 0){
         res.status(400).json({
@@ -110,6 +146,7 @@ catch (error) {
 
 
   });
+
 
 
 

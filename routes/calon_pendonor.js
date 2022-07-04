@@ -35,7 +35,20 @@ router.get("/getCalonPendonor", async(req,res) => {
     } catch (e) {
         res.json({msg:e});
     }
-})
+});
+
+//tulung difix
+router.delete("/getCalonPendonor", async(req,res) => {
+    try {
+        let calonPendonor=await CalonPendonorModel.find();
+        calonPendonor.findOneAndDelete(
+            {_id: req.params.id }).then(function (calonPendonor) {
+                res.send(calonPendonor);
+            })
+    } catch (e) {
+        res.json({msg:e});
+    }
+});
 
 
 module.exports = router;
