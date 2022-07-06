@@ -3,6 +3,8 @@ dotenv.config();
 const express = require("express"); //importing express
 const mongoose = require("mongoose")
 const app = express(); //making express object
+const nodemailer = require('nodemailer');
+
 
 const port = process.env.PORT || '5000';
 mongoose.connect( "mongodb+srv://azmi:kakatua2@capstone.zfr2c.mongodb.net/capstone?retryWrites=true&w=majority", {

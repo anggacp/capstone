@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
-const CalonPendonorModel = require("../models/calon_pendonor_model")
+const CalonPendonorModel = require("../models/calon_pendonor_model");
+const dbConnect = require("../server");
+const nodemailer = require("nodemailer")
 
 router.post("/createCalonPendonor", async (req,res)=> {
     const calonPendonor = new CalonPendonorModel({
@@ -37,18 +39,67 @@ router.get("/getCalonPendonor", async(req,res) => {
     }
 });
 
-//tulung difix
-router.delete("/getCalonPendonor", async(req,res) => {
-    try {
-        let calonPendonor=await CalonPendonorModel.find();
-        calonPendonor.findOneAndDelete(
-            {_id: req.params.id }).then(function (calonPendonor) {
-                res.send(calonPendonor);
-            })
-    } catch (e) {
-        res.json({msg:e});
-    }
+router.post("/delete", async(req,res) => {
+    const id = req.body
+    CalonPendonorModel.findOneAndDelete(({_id:id}),function(err,docs){
+        if (docs==null) {
+            res.send("ID can't be found")
+        } else {
+        res.send(docs)
+        }
+    })
 });
+
+router.post('/mailLolos', async (req,res) => {
+    const {email} = req.body;
+    let transporter = nodemailer.createTransport({
+                service:'gmail',
+                auth: {
+                   user: 'anggara663@gmail.com',
+                   pass: 'ksulkkhobxemtzph'
+                },
+    });
+
+    const msg = {
+        from: 'anggara663@gmail.com',
+        to: email,
+        subject: 'Konfirmasi Pendaftaran Calon Pendonor Plasma Konvalesen',
+        text: 'Anda lolos melewati tahapan screening, silahkan datang ke rumah sakit terdekat'
+    };
+
+    let info = await transporter.sendMail(msg);
+
+    console.log("Message sent: %s", info.messageId);
+    console.log("preview URL: %s", nodemailer.getTestMessageUrl(info));
+
+    res.send('Email sent!')
+})
+
+router.post('/mailGagal', async (req,res) => {
+    const {email} = req.body;
+    let transporter = nodemailer.createTransport({
+                service:'gmail',
+                auth: {
+                   user: 'anggara663@gmail.com',
+                   pass: 'ksulkkhobxemtzph'
+                },
+    });
+
+    const msg = {
+        from: 'anggara663@gmail.com',
+        to: email,
+        subject: 'Konfirmasi Pendaftaran Calon Pendonor Plasma Konvalesen',
+        text: 'Mohon maaf, anda tidak lolos sebagai pendonor plasma konvalesen'
+    };
+
+    let info = await transporter.sendMail(msg);
+
+    console.log("Message sent: %s", info.messageId);
+    console.log("preview URL: %s", nodemailer.getTestMessageUrl(info));
+
+    res.send('Email sent!')
+})
+
 
 
 module.exports = router;
