@@ -1,9 +1,6 @@
 const { ObjectId } = require("mongodb");
 const mongoose = require("mongoose");
 const calonPendonorSchema = mongoose.Schema({
-    _id: {
-        type: ObjectId
-    },
     namaPendonor: {
         type: String,
         required: true,
